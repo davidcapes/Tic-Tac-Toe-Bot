@@ -54,13 +54,15 @@ def get_best_move(game):
             return random.choice([0, 2]), random.choice([0, 2])
         else:
             return random.choice(((0, 1), (1, 0), (1, 2), (2, 1)))
-
+    
+    # Store move evaluations.
     move_evaluations = {}
     for move in game.get_possible_moves():
         game.make_move(move)
         move_evaluations[move] = min_max(game)
         game.undo_move()
 
+    # Choose best move based on recorded evaluations.
     if move_evaluations:
         best_eval = 0
         if game.turn_team == Team.TEAM1:
